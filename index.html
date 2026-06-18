@@ -1,161 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Server Room Checklist Form</title>
+  <title>Checklist de Contrôle Quotidien de la Salle Serveur</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f4f6f8;
       margin: 0;
       padding: 30px;
+      color: #111827;
     }
-
     .container {
-      max-width: 800px;
+      max-width: 1100px;
       margin: auto;
-      background: #ffffff;
+      background: #fff;
       padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
     }
-
     h1 {
       text-align: center;
-      color: #1f2937;
+      margin-bottom: 25px;
     }
-
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
     label {
       font-weight: bold;
       display: block;
-      margin-top: 15px;
+      margin-bottom: 6px;
     }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="time"],
-    textarea {
+    input, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd5e1;
       border-radius: 6px;
       box-sizing: border-box;
     }
-
-    .question {
-      margin-top: 20px;
-      padding: 15px;
+    .section {
+      margin-top: 30px;
+    }
+    .section h2 {
+      background: #2563eb;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 18px;
+    }
+    .check-row {
+      display: grid;
+      grid-template-columns: minmax(0, 2.8fr) minmax(220px, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-bottom: 1px solid #e5e7eb;
       background: #f9fafb;
-      border-left: 4px solid #2563eb;
-      border-radius: 6px;
     }
-
-    .options {
-      margin-top: 10px;
+    .check-row.header {
+      font-weight: bold;
+      background: #e5edff;
     }
-
-    .options label {
-      font-weight: normal;
-      display: inline-block;
-      margin-right: 20px;
+    .status {
+      text-align: center;
     }
-
+    .problem-box {
+      background: #fff7ed;
+      border-left: 5px solid #f97316;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 8px;
+    }
     button {
       margin-top: 25px;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: #2563eb;
       color: white;
       border: none;
-      border-radius: 6px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 17px;
       cursor: pointer;
     }
-
     button:hover {
       background: #1d4ed8;
+    }
+
+    .control-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .control-text {
+      flex: 1;
+    }
+
+    .control-status {
+      white-space: nowrap;
+      display: inline-flex;
+      gap: 18px;
+      align-items: center;
+      padding-top: 2px;
+      min-width: 120px;
+      justify-content: flex-end;
+    }
+
+    .control-status label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    @media (max-width: 800px) {
+      .meta {
+        grid-template-columns: 1fr;
+      }
+      .check-row {
+        grid-template-columns: 1fr;
+      }
+      .control-line {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .status {
+        text-align: left;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <h1>Server Room Checklist</h1>
+    <h1>Checklist de Contrôle Quotidien de la Salle Serveur</h1>
 
-    <form action="#" method="post">
-      <label for="inspector">Inspector Name</label>
-      <input type="text" id="inspector" name="inspector" required />
-
-      <label for="date">Inspection Date</label>
-      <input type="date" id="date" name="date" required />
-
-      <label for="time">Inspection Time</label>
-      <input type="time" id="time" name="time" required />
-
-      <div class="question">
-        <p>1. Is the server room temperature within the approved operating range?</p>
-        <div class="options">
-          <label><input type="radio" name="temperature_range" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="temperature_range" value="No" /> No</label>
+    <form id="serverRoomChecklist">
+      <div class="meta">
+        <div>
+          <label for="inspection_date">Date</label>
+          <input type="date" id="inspection_date" name="inspection_date" required />
+        </div>
+        <div>
+          <label for="inspector_name">Effectué par</label>
+          <input type="text" id="inspector_name" name="inspector_name" required />
+        </div>
+        <div>
+          <label for="inspection_time">Heure</label>
+          <input type="time" id="inspection_time" name="inspection_time" required />
         </div>
       </div>
 
-      <div class="question">
-        <p>2. Are all UPS units operational?</p>
-        <div class="options">
-          <label><input type="radio" name="ups_operational" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="ups_operational" value="No" /> No</label>
-        </div>
+      <div id="checklist"></div>
+
+      <div class="problem-box">
+        <strong>🔧 En cas de problème :</strong>
+        <p>Si un point de contrôle est en état KO, décrire le problème dans la colonne Commentaire et déclencher les actions correctives nécessaires.</p>
       </div>
 
-      <div class="question">
-        <p>3. Are all servers operational?</p>
-        <div class="options">
-          <label><input type="radio" name="servers_operational" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="servers_operational" value="No" /> No</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <p>4. Are security cameras operational?</p>
-        <div class="options">
-          <label><input type="radio" name="cameras_operational" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="cameras_operational" value="No" /> No</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <p>5. Is the server room clean and organized?</p>
-        <div class="options">
-          <label><input type="radio" name="clean_organized" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="clean_organized" value="No" /> No</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <p>6. Is the access control system operational?</p>
-        <div class="options">
-          <label><input type="radio" name="access_control" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="access_control" value="No" /> No</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <p>7. Are fire extinguishers available and accessible?</p>
-        <div class="options">
-          <label><input type="radio" name="fire_extinguishers" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="fire_extinguishers" value="No" /> No</label>
-        </div>
-      </div>
-
-      <label for="comments">Additional Comments</label>
-      <textarea id="comments" name="comments" rows="5"></textarea>
-
-      <button type="submit">Submit Checklist</button>
+      <button type="submit">Soumettre la checklist</button>
     </form>
   </div>
 
+  <script>
+    const sections = [
+      {
+        title: "1. Environnement & Climatisation",
+        items: [
+          ["temperature", "Température : Vérifier que la température se situe entre 18-27°C."],
+          ["humidity", "Humidité : Vérifier que le taux d'humidité est entre 40-60%."],
+          ["hvac", "Climatisation (HVAC) : Vérifier que le système de refroidissement est en marche et fonctionne correctement."],
+          ["airflow", "Airflow : S'assurer que rien ne bloque la circulation d'air autour des baies et des équipements."],
+          ["cleanliness", "Propreté : Vérifier l'absence de poussière excessive, de débris ou d'obstacles."]
+        ]
+      },
+      {
+        title: "2. Alimentation Électrique",
+        items: [
+          ["ups", "Onduleurs (UPS) : Vérifier qu'aucun message d'alerte ou de panne ne s'affiche sur les UPS et que leur fonctionnement est normal."],
+          ["ups_alarm", "Alarme UPS : Vérifier qu'aucune alarme anormale n'est active."],
+          ["power_cables", "Câbles d'alimentation : S'assurer que les câbles sont bien connectés et ne présentent pas de signes de dommages."]
+        ]
+      },
+      {
+        title: "3. Sécurité Physique",
+        items: [
+          ["access_control", "Accès : Vérifier que la porte de la salle est bien fermée et que le système de contrôle d'accès est fonctionnel."],
+          ["cctv", "Caméras de surveillance (CCTV) : Vérifier que les caméras fonctionnent."],
+          ["sensitive_areas", "Zones sensibles : S'assurer que les baies critiques et les zones de câblage sont correctement verrouillées et sécurisées."]
+        ]
+      },
+      {
+        title: "4. Matériel Physique",
+        items: [
+          ["server_lights", "Voyants des serveurs : Vérifier que tous les voyants des serveurs sont verts."],
+          ["san_lights", "Voyants des disques (SAN) : Vérifier que les voyants du SAN ou des baies de stockage sont normaux."],
+          ["nas_lights", "Voyants des disques (NAS) : Vérifier que les voyants du NAS ou des baies de stockage sont normaux."],
+          ["ventilation", "Ventilation : Écouter pour détecter tout bruit anormal et vérifier que tous les ventilateurs tournent."],
+          ["network_switches", "Infrastructure réseau (Switches) : Vérifier que les voyants des commutateurs sont normaux."],
+          ["fortigate_silverpeak", "Fortigate & Silver Peak : Vérifier que les voyants sont normaux et qu'il n'y a pas d'alerte."]
+        ]
+      },
+      {
+        title: "5. Sauvegardes & Logiciels",
+        items: [
+          ["backups", "État des sauvegardes : Vérifier que les sauvegardes de la nuit précédente se sont déroulées sans erreur."],
+          ["system_alerts", "Alertes système : Consulter les tableaux de bord de monitoring pour confirmer l'absence d'alertes critiques."],
+          ["vms_servers", "Ordinateurs/Machines virtuelles : Vérifier que toutes les machines virtuelles ou serveurs critiques sont bien démarrés et répondent."]
+        ]
+      },
+      {
+        title: "6. Câblage & Organisation",
+        items: [
+          ["order", "Ordre : Vérifier qu'aucun câble ou objet inutile ne traîne."]
+        ]
+      }
+    ];
+
+    const checklist = document.getElementById("checklist");
+
+    sections.forEach(section => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "section";
+      wrapper.innerHTML = `<h2>${section.title}</h2>
+        <div class="check-row header">
+          <div>Point de contrôle</div>
+          <div></div>
+        </div>`;
+
+      section.items.forEach(([key, label]) => {
+        wrapper.innerHTML += `
+          <div class="check-row">
+            <div class="control-line">
+              <span class="control-text">${label}</span>
+              <span class="control-status">
+                <label><input type="radio" name="${key}_status" value="OK" required> OK</label>
+                <label><input type="radio" name="${key}_status" value="KO"> KO</label>
+              </span>
+            </div>
+            <div><input type="text" name="${key}_comment" placeholder="Commentaire"></div>
+          </div>`;
+      });
+
+      checklist.appendChild(wrapper);
+    });
+
+    document.getElementById("serverRoomChecklist").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const form = new FormData(e.target);
+      const data = Object.fromEntries(form.entries());
+
+      // For testing:
+      console.log("Checklist data:", data);
+      alert("Checklist prête. Les données sont visibles dans la console.");
+
+      /*
+      To send to Directus later, replace YOUR_TOKEN and confirm your field names:
+
+      const response = await fetch("https://directus.wafportal.com/items/server_room_checklist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer YOUR_TOKEN"
+        },
+        body: JSON.stringify(data)
+      });
+      */
+    });
+  </script>
 </body>
 </html>

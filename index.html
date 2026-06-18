@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Server Room Checklist Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f2937;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .question {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9fafb;
+      border-left: 4px solid #2563eb;
+      border-radius: 6px;
+    }
+
+    .options {
+      margin-top: 10px;
+    }
+
+    .options label {
+      font-weight: normal;
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Server Room Checklist</h1>
+
+    <form action="#" method="post">
+      <label for="inspector">Inspector Name</label>
+      <input type="text" id="inspector" name="inspector" required />
+
+      <label for="date">Inspection Date</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="time">Inspection Time</label>
+      <input type="time" id="time" name="time" required />
+
+      <div class="question">
+        <p>1. Is the server room temperature within the approved operating range?</p>
+        <div class="options">
+          <label><input type="radio" name="temperature_range" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="temperature_range" value="No" /> No</label>
+          <label><input type="radio" name="temperature_range" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. Are all UPS units operational?</p>
+        <div class="options">
+          <label><input type="radio" name="ups_operational" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="ups_operational" value="No" /> No</label>
+          <label><input type="radio" name="ups_operational" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. Are all servers operational?</p>
+        <div class="options">
+          <label><input type="radio" name="servers_operational" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="servers_operational" value="No" /> No</label>
+          <label><input type="radio" name="servers_operational" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Are security cameras operational?</p>
+        <div class="options">
+          <label><input type="radio" name="cameras_operational" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="cameras_operational" value="No" /> No</label>
+          <label><input type="radio" name="cameras_operational" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. Is the server room clean and organized?</p>
+        <div class="options">
+          <label><input type="radio" name="clean_organized" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="clean_organized" value="No" /> No</label>
+          <label><input type="radio" name="clean_organized" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>6. Is the access control system operational?</p>
+        <div class="options">
+          <label><input type="radio" name="access_control" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="access_control" value="No" /> No</label>
+          <label><input type="radio" name="access_control" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>7. Are fire extinguishers available and accessible?</p>
+        <div class="options">
+          <label><input type="radio" name="fire_extinguishers" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="fire_extinguishers" value="No" /> No</label>
+          <label><input type="radio" name="fire_extinguishers" value="N/A" /> N/A</label>
+        </div>
+      </div>
+
+      <label for="comments">Additional Comments</label>
+      <textarea id="comments" name="comments" rows="5"></textarea>
+
+      <button type="submit">Submit Checklist</button>
+    </form>
+  </div>
+
+</body>
+</html>

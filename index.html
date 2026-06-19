@@ -254,28 +254,97 @@
   e.preventDefault();
 
   const form = new FormData(e.target);
-  const data = Object.fromEntries(form.entries());
+const data = Object.fromEntries(form.entries());
 
-  try {
-    const response = await fetch("/submit-checklist", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+const payload = {
+  Date: data.inspection_date,
+  Heure: data.inspection_time,
+  Nom: data.inspector_name,
+ 
+  Temperature_status: data.temperature_status,
+  Temperature_comment: data.temperature_comment,
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
+  humidity_status: data.humidity_status,
+  humidity_comment: data.humidity_comment,
 
-    alert("Checklist submitted successfully!");
-    e.target.reset();
+  hvac_status: data.hvac_status,
+  hvac_comment: data.hvac_comment,
 
-  } catch (error) {
-    console.error(error);
-    alert("Error submitting checklist.");
+  Airflow: data.airflow_status,
+  airflow_comment: data.airflow_comment,
+
+  Proprete_status: data.cleanliness_status,
+  Proprete_comment: data.cleanliness_comment,
+
+  Onduleurs_UPS: data.ups_status,
+  Onduleurs_UPS_comment: data.ups_comment,
+
+  Alarme_UPS: data.ups_alarm_status,
+  Alarme_UPS_comment: data.ups_alarm_comment,
+
+  Cables_dalimentation: data.power_cables_status,
+  Cables_dalimentation_comment: data.power_cables_comment,
+
+  Acces: data.access_control_status,
+  Acces_comment: data.access_control_comment,
+
+  Cameras_de_surveillance_CCTV: data.cctv_status,
+  Cameras_de_surveillance_CCTV_comment: data.cctv_comment,
+
+  Zones_sensibles: data.sensitive_areas_status,
+  Zones_sensibles_comment: data.sensitive_areas_comment,
+
+  Voyants_des_serveurs: data.server_lights_status,
+  Voyants_des_serveurs_comment: data.server_lights_comment,
+
+  Voyants_des_disques_SAN: data.san_lights_status,
+  Voyants_des_disques_SAN_comment: data.san_lights_comment,
+
+  Voyants_des_disques_NAS: data.nas_lights_status,
+  Voyants_des_disques_NAS_comment: data.nas_lights_comment,
+
+  Ventilation: data.ventilation_status,
+  Ventilation_comment: data.ventilation_comment,
+
+  Infrastructure_reseau: data.network_switches_status,
+  Infrastructure_reseau_comment: data.network_switches_comment,
+
+  Fortigate_Silver_Peak: data.fortigate_silverpeak_status,
+  Fortigate_Silver_Peak_comment: data.fortigate_silverpeak_comment,
+
+  Etat_des_sauvegardes: data.backups_status,
+  Etat_des_sauvegardes_comment: data.backups_comment,
+
+  Alertes_systeme: data.system_alerts_status,
+  Alertes_systeme_comment: data.system_alerts_comment,
+
+  OrdinateursMachines_virtuelles: data.vms_servers_status,
+  OrdinateursMachines_virtuelles_comment: data.vms_servers_comment,
+
+  Ordre: data.order_status,
+  Ordre_comment: data.order_comment
+};
+
+try {
+  const response = await fetch("/submit-checklist", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(await response.text());
   }
+
+  alert("Checklist submitted successfully!");
+  e.target.reset();
+
+} catch (error) {
+  console.error(error);
+  alert("Error submitting checklist.");
+}
 });
     
   </script>

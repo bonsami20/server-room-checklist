@@ -263,6 +263,10 @@ const data = Object.fromEntries(form.entries());
 
 const telegramUser = tg?.initDataUnsafe?.user;
 
+const tg = window.Telegram?.WebApp;
+
+     alert(JSON.stringify(tg?.initDataUnsafe?.user, null, 2));
+
 const payload = {
   Date: data.inspection_date,
   Heure: data.inspection_time,

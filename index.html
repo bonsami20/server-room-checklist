@@ -169,10 +169,6 @@
   </div>
 
   <script>
-    const tg = window.Telegram?.WebApp;
-    tg?.ready();
-    tg?.expand();
-
     const sections = [
       {
         title: "1. Environnement & Climatisation",
@@ -261,20 +257,10 @@
   const form = new FormData(e.target);
 const data = Object.fromEntries(form.entries());
 
-const telegramUser = tg?.initDataUnsafe?.user;
-
-const tg = window.Telegram?.WebApp;
-
-     alert(JSON.stringify(tg?.initDataUnsafe?.user, null, 2));
-
 const payload = {
   Date: data.inspection_date,
   Heure: data.inspection_time,
   Nom: data.inspector_name,
-
-  telegram_user_id: telegramUser?.id,
-  telegram_username: telegramUser?.username || "",
-  telegram_name: telegramUser?.first_name || "",
  
   Temperature_status: data.temperature_status,
   temperature_comment: data.temperature_comment,
@@ -350,9 +336,7 @@ try {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    alert(errorText || "Access denied or submission failed.");
-    throw new Error(errorText);
+    throw new Error(await response.text());
   }
 
   alert("Checklist submitted successfully!");

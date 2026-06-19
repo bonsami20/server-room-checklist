@@ -1,0 +1,10 @@
+name = "server-room-checklist"
+main = "src/index.js"
+compatibility_date = "2026-06-19"
+
+[assets]
+directory = "./"
+binding = "ASSETS"
+
+[vars]
+DIRECTUS_URL = "https://directus.wafportal.com"

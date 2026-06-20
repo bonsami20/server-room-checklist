@@ -7,9 +7,12 @@ export default {
         const body = await request.json();
 
         if (!body.telegram_init_data) {
-          return new Response("Access denied. Open this checklist from Telegram.", {
-            status: 403
-          });
+          return new Response(JSON.stringify(memberData, null, 2),
+          {
+              status: 403,
+              headers: { "Content-Type": "application/json" }
+       }
+      );
         }
 
         const initData = new URLSearchParams(body.telegram_init_data);

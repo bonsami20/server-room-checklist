@@ -254,10 +254,14 @@
     document.getElementById("serverRoomChecklist").addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  const form = new FormData(e.target);
+ const form = new FormData(e.target);
 const data = Object.fromEntries(form.entries());
 
+const tg = window.Telegram?.WebApp;
+tg?.ready();
+
 const payload = {
+  telegram_init_data: tg?.initData || "",
   Date: data.inspection_date,
   Heure: data.inspection_time,
   Nom: data.inspector_name,

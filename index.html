@@ -103,14 +103,12 @@
     }
 
     .control-status {
-      white-space: nowrap;
-      display: inline-flex;
-      gap: 18px;
-      align-items: center;
-      padding-top: 2px;
-      min-width: 120px;
-      justify-content: flex-end;
-    }
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+   }
 
     .control-status label {
       display: inline-flex;
@@ -134,7 +132,19 @@
       .status {
         text-align: left;
       }
-    }
+      .control-status {
+          gap: 40px;
+}
+
+.control-status label {
+  font-size: 18px;
+}
+
+.control-status input[type="radio"] {
+  width: 26px;
+  height: 26px;
+}
+}
   </style>
 </head>
 <body>

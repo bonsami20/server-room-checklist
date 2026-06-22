@@ -111,12 +111,14 @@
    }
 
     .control-status label {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      margin: 0;
-      font-weight: normal;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 70px;
+    margin: 0;
+    font-weight: normal;
+}
 
     @media (max-width: 800px) {
       .meta {
@@ -133,7 +135,7 @@
         text-align: left;
       }
       .control-status {
-          gap: 40px;
+          gap: 20px;
 }
 
 .control-status label {

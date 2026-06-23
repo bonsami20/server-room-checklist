@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#2563eb">
+
   <title>Checklist de Contrôle Quotidien de la Salle Serveur</title>
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,6 +19,7 @@
       padding: 30px;
       color: #111827;
     }
+
     .container {
       max-width: 1100px;
       margin: auto;
@@ -23,31 +28,38 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,.08);
     }
+
     h1 {
       text-align: center;
       margin-bottom: 25px;
     }
+
     .meta {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 15px;
       margin-bottom: 25px;
     }
+
     label {
       font-weight: bold;
       display: block;
       margin-bottom: 6px;
     }
-    input, textarea {
+
+    input,
+    textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #cbd5e1;
       border-radius: 6px;
       box-sizing: border-box;
     }
+
     .section {
       margin-top: 30px;
     }
+
     .section h2 {
       background: #2563eb;
       color: white;
@@ -55,6 +67,7 @@
       border-radius: 8px;
       font-size: 18px;
     }
+
     .check-row {
       display: grid;
       grid-template-columns: minmax(0, 2.8fr) minmax(220px, 1fr);
@@ -64,13 +77,16 @@
       border-bottom: 1px solid #e5e7eb;
       background: #f9fafb;
     }
+
     .check-row.header {
       font-weight: bold;
       background: #e5edff;
     }
+
     .status {
       text-align: center;
     }
+
     .problem-box {
       background: #fff7ed;
       border-left: 5px solid #f97316;
@@ -78,6 +94,7 @@
       margin-top: 30px;
       border-radius: 8px;
     }
+
     button {
       margin-top: 25px;
       width: 100%;
@@ -89,6 +106,7 @@
       font-size: 17px;
       cursor: pointer;
     }
+
     button:hover {
       background: #1d4ed8;
     }
@@ -105,53 +123,66 @@
     }
 
     .control-status {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 8px;
-   }
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
 
     .control-status label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    min-width: 70px;
-    margin: 0;
-    font-weight: normal;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-width: 70px;
+      margin: 0;
+      font-weight: normal;
+    }
 
     @media (max-width: 800px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
       .meta {
         grid-template-columns: 1fr;
       }
+
       .check-row {
         grid-template-columns: 1fr;
       }
+
       .control-line {
         flex-direction: column;
         gap: 10px;
       }
+
       .status {
         text-align: left;
       }
+
       .control-status {
-          gap: 20px;
-}
+        gap: 20px;
+      }
 
-.control-status label {
-  font-size: 18px;
-}
+      .control-status label {
+        font-size: 18px;
+      }
 
-.control-status input[type="radio"] {
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-}
-}
+      .control-status input[type="radio"] {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Checklist de Contrôle Quotidien de la Salle Serveur</h1>
@@ -162,10 +193,12 @@
           <label for="inspection_date">Date</label>
           <input type="date" id="inspection_date" name="inspection_date" required />
         </div>
+
         <div>
           <label for="inspector_name">Effectué par</label>
           <input type="text" id="inspector_name" name="inspector_name" required />
         </div>
+
         <div>
           <label for="inspection_time">Heure</label>
           <input type="time" id="inspection_time" name="inspection_time" required />
@@ -243,11 +276,13 @@
     sections.forEach(section => {
       const wrapper = document.createElement("div");
       wrapper.className = "section";
-      wrapper.innerHTML = `<h2>${section.title}</h2>
+      wrapper.innerHTML = `
+        <h2>${section.title}</h2>
         <div class="check-row header">
           <div>Point de contrôle</div>
           <div></div>
-        </div>`;
+        </div>
+      `;
 
       section.items.forEach(([key, label]) => {
         wrapper.innerHTML += `
@@ -259,119 +294,121 @@
                 <label><input type="radio" name="${key}_status" value="KO"> KO</label>
               </span>
             </div>
-            <div><input type="text" name="${key}_comment" placeholder="Commentaire"></div>
-          </div>`;
+            <div>
+              <input type="text" name="${key}_comment" placeholder="Commentaire">
+            </div>
+          </div>
+        `;
       });
 
       checklist.appendChild(wrapper);
     });
 
     document.getElementById("serverRoomChecklist").addEventListener("submit", async function(e) {
-  e.preventDefault();
+      e.preventDefault();
 
- const form = new FormData(e.target);
-const data = Object.fromEntries(form.entries());
+      const form = new FormData(e.target);
+      const data = Object.fromEntries(form.entries());
 
-const tg = window.Telegram?.WebApp;
-tg?.ready();
+      const tg = window.Telegram?.WebApp;
+      tg?.ready();
 
-const payload = {
-  telegram_init_data: tg?.initData || "",
-  Date: data.inspection_date,
-  Heure: data.inspection_time,
-  Nom: data.inspector_name,
- 
-  Temperature_status: data.temperature_status,
-  temperature_comment: data.temperature_comment,
+      const payload = {
+        telegram_init_data: tg?.initData || "",
 
-  humidity_status: data.humidity_status,
-  humidity_comment: data.humidity_comment,
+        Date: data.inspection_date,
+        Heure: data.inspection_time,
+        Nom: data.inspector_name,
 
-  hvac_status: data.hvac_status,
-  hvac_comment: data.hvac_comment,
+        Temperature_status: data.temperature_status,
+        temperature_comment: data.temperature_comment,
 
-  Airflow: data.airflow_status,
-  airflow_comment: data.airflow_comment,
+        humidity_status: data.humidity_status,
+        humidity_comment: data.humidity_comment,
 
-  Proprete_status: data.cleanliness_status,
-  Proprete_comment: data.cleanliness_comment,
+        hvac_status: data.hvac_status,
+        hvac_comment: data.hvac_comment,
 
-  Onduleurs_UPS: data.ups_status,
-  Onduleurs_UPS_comment: data.ups_comment,
+        Airflow: data.airflow_status,
+        airflow_comment: data.airflow_comment,
 
-  Alarme_UPS: data.ups_alarm_status,
-  Alarme_UPS_comment: data.ups_alarm_comment,
+        Proprete_status: data.cleanliness_status,
+        Proprete_comment: data.cleanliness_comment,
 
-  Cables_dalimentation: data.power_cables_status,
-  Cables_dalimentation_comment: data.power_cables_comment,
+        Onduleurs_UPS: data.ups_status,
+        Onduleurs_UPS_comment: data.ups_comment,
 
-  Acces: data.access_control_status,
-  Acces_comment: data.access_control_comment,
+        Alarme_UPS: data.ups_alarm_status,
+        Alarme_UPS_comment: data.ups_alarm_comment,
 
-  Cameras_de_surveillance_CCTV: data.cctv_status,
-  Cameras_de_surveillance_comment: data.cctv_comment,
+        Cables_dalimentation: data.power_cables_status,
+        Cables_dalimentation_comment: data.power_cables_comment,
 
-  Zones_sensibles: data.sensitive_areas_status,
-  Zones_sensibles_comment: data.sensitive_areas_comment,
+        Acces: data.access_control_status,
+        Acces_comment: data.access_control_comment,
 
-  Voyants_des_serveurs: data.server_lights_status,
-  Voyants_des_serveurs_comment: data.server_lights_comment,
+        Cameras_de_surveillance_CCTV: data.cctv_status,
+        Cameras_de_surveillance_comment: data.cctv_comment,
 
-  Voyants_des_disques_SAN: data.san_lights_status,
-  Voyants_des_disques_SAN_comment: data.san_lights_comment,
+        Zones_sensibles: data.sensitive_areas_status,
+        Zones_sensibles_comment: data.sensitive_areas_comment,
 
-  Voyants_des_disques_NAS: data.nas_lights_status,
-  Voyants_des_disques_NAS_comment: data.nas_lights_comment,
+        Voyants_des_serveurs: data.server_lights_status,
+        Voyants_des_serveurs_comment: data.server_lights_comment,
 
-  Ventilation: data.ventilation_status,
-  Ventilation_comment: data.ventilation_comment,
+        Voyants_des_disques_SAN: data.san_lights_status,
+        Voyants_des_disques_SAN_comment: data.san_lights_comment,
 
-  Infrastructure_reseau: data.network_switches_status,
-  Infrastructure_reseau_comment: data.network_switches_comment,
+        Voyants_des_disques_NAS: data.nas_lights_status,
+        Voyants_des_disques_NAS_comment: data.nas_lights_comment,
 
-  Fortigate__Silver_Peak: data.fortigate_silverpeak_status,
-  Fortigate__Silver_Peak_comment: data.fortigate_silverpeak_comment,
+        Ventilation: data.ventilation_status,
+        Ventilation_comment: data.ventilation_comment,
 
-  Etat_des_sauvegardes: data.backups_status,
-  Etat_des_sauvegardes_comment: data.backups_comment,
+        Infrastructure_reseau: data.network_switches_status,
+        Infrastructure_reseau_comment: data.network_switches_comment,
 
-  Alertes_systeme: data.system_alerts_status,
-  Alertes_systeme_comment: data.system_alerts_comment,
+        Fortigate__Silver_Peak: data.fortigate_silverpeak_status,
+        Fortigate__Silver_Peak_comment: data.fortigate_silverpeak_comment,
 
-  OrdinateursMachines_virtuelles: data.vms_servers_status,
-  OrdinateursMachines_virtuelles_comment: data.vms_servers_comment,
+        Etat_des_sauvegardes: data.backups_status,
+        Etat_des_sauvegardes_comment: data.backups_comment,
 
-  Ordre: data.order_status,
-  Ordre_comment: data.order_comment
-};
+        Alertes_systeme: data.system_alerts_status,
+        Alertes_systeme_comment: data.system_alerts_comment,
 
-try {
-  const response = await fetch("/submit-checklist", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
+        OrdinateursMachines_virtuelles: data.vms_servers_status,
+        OrdinateursMachines_virtuelles_comment: data.vms_servers_comment,
 
-  if (!response.ok) {
-    throw new Error(await response.text());
-  }
+        Ordre: data.order_status,
+        Ordre_comment: data.order_comment
+      };
 
-  alert("Checklist submitted successfully!");
-  e.target.reset();
+      try {
+        const response = await fetch("/submit-checklist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
 
-} catch (error) {
-  console.error(error);
-  alert(error.message);
-}
-});
-    
+        if (!response.ok) {
+          throw new Error(await response.text());
+        }
+
+        alert("Checklist submitted successfully!");
+        e.target.reset();
+
+      } catch (error) {
+        console.error(error);
+        alert(error.message);
+      }
+    });
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/service-worker.js");
+    }
   </script>
-  <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js");
-}
-</script>
 </body>
 </html>

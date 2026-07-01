@@ -234,11 +234,10 @@ function calendarHtml() {
           records[item.date] = item;
         });
 
-        const dates = data.map(item => item.date).filter(Boolean);
-        const baseDate = dates.length ? new Date(dates[0]) : new Date();
+        const baseDate = new Date();
 
-        const year = baseDate.getFullYear();
-        const month = baseDate.getMonth();
+       const year = baseDate.getFullYear();
+       const month = baseDate.getMonth();
 
         document.getElementById('monthTitle').textContent =
           baseDate.toLocaleString('fr-FR', { month: 'long', year: 'numeric' });

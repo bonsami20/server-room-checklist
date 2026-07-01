@@ -191,8 +191,33 @@ function calendarHtml() {
     h1{margin-bottom:10px;}
     .legend{margin-bottom:20px;}
     .legend span{margin-right:20px;}
-    .nav{display:flex;align-items:center;gap:20px;margin-bottom:15px;}
-    .nav button{padding:8px 14px;border:none;border-radius:6px;background:#1f2937;color:white;cursor:pointer;}
+    .nav{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:30px;
+  margin-bottom:20px;
+}
+
+.nav h2{
+  margin:0;
+  min-width:180px;
+  text-align:center;
+}
+
+.nav button{
+  width:auto;
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  background:#1f2937;
+  color:white;
+  cursor:pointer;
+}
+
+.nav button:hover{
+  background:#374151;
+}
     .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:1100px;}
     .header{font-weight:bold;text-align:center;background:#1f2937;color:white;padding:10px;border-radius:6px;}
     .day{background:white;min-height:110px;padding:10px;border-radius:8px;border:1px solid #ddd;cursor:pointer;}
@@ -214,9 +239,9 @@ function calendarHtml() {
   </div>
 
   <div class="nav">
-    <button id="prevMonth">◀ Previous</button>
+    <button id="prevMonth">&larr; Previous</button>
     <h2 id="monthTitle"></h2>
-    <button id="nextMonth">Next ▶</button>
+    <button id="nextMonth">Next &rarr; </button>
   </div>
 
   <div class="calendar" id="calendar">

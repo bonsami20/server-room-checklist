@@ -191,14 +191,15 @@ function calendarHtml() {
     h1{margin-bottom:10px;}
     .legend{margin-bottom:20px;}
     .legend span{margin-right:20px;}
+    
     .nav{
   display:flex;
-  justify-content:center;
   align-items:center;
   gap:30px;
   margin-bottom:20px;
+  max-width:1100px;
+  justify-content:center;
 }
-
 .nav h2{
   margin:0;
   min-width:180px;

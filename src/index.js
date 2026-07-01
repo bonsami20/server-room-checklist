@@ -191,6 +191,8 @@ function calendarHtml() {
     h1{margin-bottom:10px;}
     .legend{margin-bottom:20px;}
     .legend span{margin-right:20px;}
+    .nav{display:flex;align-items:center;gap:20px;margin-bottom:15px;}
+    .nav button{padding:8px 14px;border:none;border-radius:6px;background:#1f2937;color:white;cursor:pointer;}
     .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:1100px;}
     .header{font-weight:bold;text-align:center;background:#1f2937;color:white;padding:10px;border-radius:6px;}
     .day{background:white;min-height:110px;padding:10px;border-radius:8px;border:1px solid #ddd;cursor:pointer;}
@@ -211,7 +213,11 @@ function calendarHtml() {
     <span><b style="color:#9ca3af;">Gray</b> = No checklist</span>
   </div>
 
-  <h2 id="monthTitle"></h2>
+  <div class="nav">
+    <button id="prevMonth">◀ Previous</button>
+    <h2 id="monthTitle"></h2>
+    <button id="nextMonth">Next ▶</button>
+  </div>
 
   <div class="calendar" id="calendar">
     <div class="header">Sun</div>
@@ -234,13 +240,17 @@ function calendarHtml() {
           records[item.date] = item;
         });
 
-        const baseDate = new Date();
+        const params = new URLSearchParams(window.location.search);
 
-       const year = baseDate.getFullYear();
-       const month = baseDate.getMonth();
+        let year = Number(params.get('year')) || new Date().getFullYear();
+        let month = Number(params.get('month'));
+
+        if (Number.isNaN(month)) {
+          month = new Date().getMonth();
+        }
 
         document.getElementById('monthTitle').textContent =
-          baseDate.toLocaleString('fr-FR', { month: 'long', year: 'numeric' });
+          new Date(year, month, 1).toLocaleString('fr-FR', { month: 'long', year: 'numeric' });
 
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
@@ -290,6 +300,30 @@ function calendarHtml() {
 
           calendar.appendChild(div);
         }
+
+        document.getElementById('prevMonth').onclick = () => {
+          let newMonth = month - 1;
+          let newYear = year;
+
+          if (newMonth < 0) {
+            newMonth = 11;
+            newYear--;
+          }
+
+          window.location = '/calendar?year=' + newYear + '&month=' + newMonth;
+        };
+
+        document.getElementById('nextMonth').onclick = () => {
+          let newMonth = month + 1;
+          let newYear = year;
+
+          if (newMonth > 11) {
+            newMonth = 0;
+            newYear++;
+          }
+
+          window.location = '/calendar?year=' + newYear + '&month=' + newMonth;
+        };
       });
   </script>
 </body>

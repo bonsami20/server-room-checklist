@@ -198,7 +198,7 @@ function calendarHtml() {
   gap:30px;
   margin-bottom:20px;
   max-width:1100px;
-  justify-content:center;
+  justify-content:flex-start;
 }
 .nav h2{
   margin:0;
